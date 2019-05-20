@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>arsco instagram viewer 1.0</title>
+	<meta name="description" content="viewing page for instagram posts of arsco" />
+	<meta name="keywords" content="arsco" />
+	<meta name="author" content="arsco.corp" />
+	<link rel="shortcut icon" href="favicon.ico">
+
+	<!-- css -->
+	<link rel="stylesheet" type="text/css" href="css/index.css" />
+	<link rel="stylesheet" type="text/css" href="css/reset.css" />
+	<link rel="stylesheet" type="text/css" href="css/themify-icons.css">
+
+	<!-- vue -->
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<!-- axios -->
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
+	<!-- library -->
+
+	<!-- v-calendar -->
+	<link rel='stylesheet' href='https://unpkg.com/v-calendar/lib/v-calendar.min.css'>
+	<script src='https://unpkg.com/v-calendar'></script>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+	<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+
+	<script src="https://unpkg.com/vue-masonry-css"></script>
+
+</head>
+
+<body>
+	<main id="app" class="main-wrap">
+		<label class="company-title">ARSCO</label>
+		<div class="nav-wrap">
+			<icon></icon>
+			<ul class="nav-box">
+				<li class="nav-item" v-for="(item, menu_name, index) in menus" :key="index" :class="{
+					active : item.isActive
+				}"
+				 @click="openFilterListWrap(item, menu_name, menus)">
+					{{menu_name}}
+				</li>
+			</ul>
+		</div>
+
+		<div>
+			<div v-if="filterObject.length != 0" class="filter-object-wrap">
+				<span class="ti-filter vm arsco-color" style="margin-right:3px;"></span>
+				<filter-object v-for="(item, index) in filterObject" :key="index" :item="item" :index="index">{{item}}</filter-object>
+			</div>
+		</div>
+
+		<transition-group name="filter-type-list-wrap" tag="div">
+			<div v-for="(menu, menu_name, index) in menus" v-show="menu.isActive" :key="index" class="filter-type-list-wrap">
+				<span class="menu-name-box">{{menu_name}}</span>
+				<ul class="filter-list-wrap">
+					<li class="filter-list-box" v-for="(isActive, filter_name) in menu.list" :key="index" :class="{
+							'active' : isActive,
+						  }">
+						<button class="filter-list-btn" @click="setFilter(isActive, filter_name, menu_name)">{{filter_name}}</button>
+					</li>
+				</ul>
+				<div class="calendar-wrap" v-show="calendarViewModel">
+					<calendar>
+					</calendar>
+				</div>
+			</div>
+		</transition-group>
+
+		<!-- <transition-group name="post-wrap" tag="ul" class="post-wrap clearfix">
+			<li v-for="(item, index) in filteredList" :key="index" class="post-box">
+				<image-post-component v-if="item.type == 'image'" :item="item"></image-post-component>
+				<carousel-post-component v-if="item.type == 'carousel'" :item="item"></carousel-post-component>
+			</li>
+		</transition-group> -->
+
+		<div tag="div" name="post-content-area" v-if="!isMobile" class="post-content-area">
+			<masonry :cols="4" class="post-wrap clearfix">
+				<div v-for="(item, index) in filteredList" :key="index" @click="openPopup(item)" class="post-box">
+					<image-post-component v-if="item.type == 'image'" :item="item"></image-post-component>
+					<carousel-post-component v-if="item.type == 'carousel'" :item="item"></carousel-post-component>
+				</div>
+			</masonry>
+		</div>
+
+		<div tag="div" name="post-content-area" v-else class="post-content-area">
+			<masonry :cols="2" class="post-wrap clearfix">
+				<div v-for="(item, index) in filteredList" :key="index" @click="openPopup(item)" class="post-box">
+					<image-post-component v-if="item.type == 'image'" :item="item"></image-post-component>
+					<carousel-post-component v-if="item.type == 'carousel'" :item="item"></carousel-post-component>
+				</div>
+			</masonry>
+		</div>
+
+		<transition name="popup">
+			<popup tag="div" v-show="popupPost"></popup>
+		</transition>
+	</main>
+
+	<!-- page js -->
+	<script src="js/index.js"></script>
+</body>
+
+</html>

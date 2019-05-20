@@ -1,0 +1,6 @@
+# dependencies
+node_modules
+# log
+logs
+#crawl image
+images

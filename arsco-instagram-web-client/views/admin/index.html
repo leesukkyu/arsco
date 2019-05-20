@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons" rel="stylesheet">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.5.14/vuetify.css" rel="stylesheet">
+
+	<script src="/admin/js/jquery-3.1.1.min.js"></script>
+</head>
+
+<body>
+	<div id="app" class="loginWrap">
+		<v-app>
+			<v-layout align-center justify-center row fill-height>
+				<v-flex xs12 sm10 md8 lg6>
+					<v-card ref="form">
+						<v-card-title>
+							<img src="/admin/images/logo_horizontal.svg" style="width:200px;">
+						</v-card-title>
+						<v-card-text>
+							<v-text-field ref="name" v-model="id" :rules="[() => !!id || '아이디를 입력해주세요']" label="아이디"
+								placeholder="아이디" @keyup.enter="submit" required>
+							</v-text-field>
+							<v-text-field class="mt-3" type="password" ref="pw" v-model="pw" :rules="[() => !!pw || '비밀번호를 입력해주세요']"
+								label="비밀번호" placeholder="비밀번호" @keyup.enter="submit" required>
+							</v-text-field>
+							<div class="text-xs-right">
+								<span style="color:#ff5252">{{ errMsg }}</span>
+								<v-btn flat @click="submit" :loading="loading">로그인</v-btn>
+							</div>
+						</v-card-text>
+					</v-card>
+				</v-flex>
+			</v-layout>
+		</v-app>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vuetify/1.5.14/vuetify.min.js"></script>
+	<script src="/admin/js/index.js"></script>
+</body>
+
+</html>
