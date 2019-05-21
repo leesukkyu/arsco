@@ -1,1 +1,4 @@
-readme
+- Automatically collect postings from users.
+- Text notification system on error.
+- Instagram api permissions management
+- Provides the ability to filter collected data.
