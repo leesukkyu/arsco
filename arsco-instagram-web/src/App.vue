@@ -574,6 +574,9 @@ export default {
       } else if (type == "date") {
         this.setFilterByDate(node, forceValue);
       }
+      this.$nextTick(function() {
+        window.lazy();
+      });
     },
     // 태그로 필터 걸기
     setFilterByTag(node, forceValue) {
