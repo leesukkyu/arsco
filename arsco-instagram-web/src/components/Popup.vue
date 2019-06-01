@@ -41,7 +41,7 @@ export default {
   watch: {
     post: function(post) {
       if (post) {
-        var _this, pswpElement, items, options, gallery, obj;
+        let _this, pswpElement, items, options, gallery, obj;
         _this = this;
         pswpElement = this.$el;
         items = [];
@@ -68,7 +68,7 @@ export default {
                 e.stopPropagation();
                 e.preventDefault();
               }
-              var t = document.createElement("textarea");
+              let t = document.createElement("textarea");
               document.body.appendChild(t);
               t.value = gallery.currItem.src;
               t.select();
@@ -111,7 +111,7 @@ export default {
             function(media) {
               if (media.type == "video") {
                 // todo video는 html로
-                var obj = {
+                let obj = {
                   html:
                     '<div style="height:100%;"><div data-video-box style="margin:auto;width:80%;max-width:\'+ media.videos.standard_resolution.width +\'px; position:relative; top:50%;"><video onloadeddata="this.parentElement.style.marginTop = \'-\' + this.clientHeight / 2 + \'px\'" style="width:100%;" controls src=" ' +
                     this.getMediaUrl(
@@ -122,7 +122,7 @@ export default {
                 };
                 items.push(obj);
               } else if (media.type == "image") {
-                var obj = {
+                let obj = {
                   src: this.getMediaUrl(
                     media.type,
                     media.images.standard_resolution.url
@@ -171,8 +171,8 @@ export default {
         window.gallery = gallery;
         window.downloadImg = function(e) {
           e.preventDefault();
-          var x = new XMLHttpRequest();
-          var href = $(e.target).attr("data-href");
+          let x = new XMLHttpRequest();
+          let href = $(e.target).attr("data-href");
           x.open("GET", href, true);
           x.responseType = "blob";
           x.onload = function(e) {

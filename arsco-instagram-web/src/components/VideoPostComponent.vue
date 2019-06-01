@@ -24,7 +24,7 @@ export default {
   },
   methods: {
     getMediaUrl: function(item) {
-      var url;
+      let url;
       if (item.videos) {
         url = item.videos[this.config.RESOLUTION_TYPE].url;
         // 영상은 항상 아스코 서버에서 불러와야 함.

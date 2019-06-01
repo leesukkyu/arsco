@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     delFilterObject: function() {
-      var type, periodType;
+      let type, periodType;
       type = this.$parent.filterObject[this.index].type;
       if (type == "tag" || type == "customTag") {
         this.item.node.checked = false;

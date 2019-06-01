@@ -251,24 +251,24 @@ export default {
     };
   },
   beforeMount() {
-    var tagMap;
-    var _this = this;
+    let tagMap;
+    let _this = this;
     this.beforeLoad = true;
     // 설정 로딩
     this.$http.get("/api/loadConfig.json", {}).then(rs => {
       // 1. 커스텀 태그 설정
-      var travalTree;
+      let travalTree;
       //customTags = [];
       travalTree = function(tree) {
         tree.checked = false;
         tree.checked_union = false;
         if (tree.childList) {
-          for (var i in tree.childList) {
+          for (let i in tree.childList) {
             travalTree(tree.childList[i]);
           }
         }
       };
-      for (var i in rs.tree) {
+      for (let i in rs.tree) {
         travalTree(rs.tree[i]);
       }
       this.menus.customTags.list = _COPY(rs.tree);
@@ -282,15 +282,15 @@ export default {
 
       // 3. 인스타 그램 포스트 로딩
       this.$http.get("/api/getAllPost.json", {}).then(rs => {
-        var posts;
-        var tagList = [];
+        let posts;
+        let tagList = [];
         posts = rs;
         tagMap = {};
-        for (var i in posts) {
+        for (let i in posts) {
           posts[i].created_time = posts[i].created_time * 1000;
           if (1544359705399 < posts[i].created_time) {
             // setting tag list
-            for (var j in posts[i].tags) {
+            for (let j in posts[i].tags) {
               tagList.push(posts[i].tags[j]);
             }
           } else {
@@ -298,7 +298,7 @@ export default {
           }
         }
         tagList.sort();
-        for (var i in tagList) {
+        for (let i in tagList) {
           if (!tagMap[tagList[i]]) {
             this.menus.tags.list.push({
               key: tagList[i],
@@ -329,7 +329,7 @@ export default {
   },
   computed: {
     filteredList() {
-      var _this = this;
+      let _this = this;
       return _this.filterObject.length == 0 &&
         _this.filterObject_union.length == 0
         ? _this.posts
@@ -398,7 +398,7 @@ export default {
       //   });
     },
     calendarViewModel() {
-      var _this = this;
+      let _this = this;
       return (
         _this.menus.date.isActive && _this.menus.date.map["custom"].checked
       );
@@ -417,8 +417,8 @@ export default {
   methods: {
     // 합집합 필터
     unionFilter: function(list) {
-      var _this = this;
-      var type;
+      let _this = this;
+      let type;
       return list.filter(function(post) {
         // 1. 합집합 결과 리스트
         return _this.filterObject_union.some(function(obj) {
@@ -450,8 +450,8 @@ export default {
     },
     // 교집합 필터
     intersectionFilter: function(list) {
-      var _this = this;
-      var type;
+      let _this = this;
+      let type;
       return list.filter(function(post) {
         return _this.filterObject.every(function(obj) {
           console.log(obj);
@@ -483,13 +483,13 @@ export default {
 
     setFilterData() {
       // 1. tags의 맵을 생성.
-      for (var i in this.menus.tags.list) {
+      for (let i in this.menus.tags.list) {
         this.menus.tags.map[this.menus.tags.list[i].key] = this.menus.tags.list[
           i
         ];
       }
       // 2. date 맵을 생성.
-      for (var i in this.menus.date.list) {
+      for (let i in this.menus.date.list) {
         this.menus.date.map[this.menus.date.list[i].key] = this.menus.date.list[
           i
         ];
@@ -514,8 +514,8 @@ export default {
     },
     // 커스텀 태그를 탐색하면서 자식을 cb로 밀어넣어줌.
     TraversalChildNode(root, cb) {
-      var search = function(node, parentNode) {
-        for (var i in node) {
+      let search = function(node, parentNode) {
+        for (let i in node) {
           if (node[i].childList) {
             if (cb) {
               cb(node, i, parentNode);
@@ -532,9 +532,9 @@ export default {
     },
     // 커스텀 태그를 탐색
     findCustomTagsByTagName(tagName, cb) {
-      var result;
-      var search = function(node) {
-        for (var i in node) {
+      let result;
+      let search = function(node) {
+        for (let i in node) {
           if (i == tagName) {
             result = node[i];
             if (cb) {
@@ -553,7 +553,7 @@ export default {
     // 필터 리스트를 오픈
     openFilterListWrap(item, menu_name, menus) {
       console.log(item, menu_name, menus);
-      for (var i in menus) {
+      for (let i in menus) {
         if (item == menus[i]) {
           if (menus[i].isActive) {
             menus[i].isActive = false;
@@ -595,7 +595,7 @@ export default {
       }
       // 태그 삭제
       else {
-        for (var i in this.filterObject) {
+        for (let i in this.filterObject) {
           if (
             this.filterObject[i].type == "tag" &&
             this.filterObject[i].tagName == node.name
@@ -626,7 +626,7 @@ export default {
       }
       // 태그 삭제
       else {
-        for (var i in this.filterObject) {
+        for (let i in this.filterObject) {
           if (
             this.filterObject[i].type == "customTag" &&
             this.filterObject[i].tagName == node.name
@@ -638,7 +638,7 @@ export default {
     },
     // 날짜로 필터 걸기
     setFilterByDate(node, forceValue) {
-      var startDate, endDate;
+      let startDate, endDate;
       node.checked = !node.checked;
       if (forceValue != undefined) {
         node.checked = forceValue;
@@ -700,7 +700,7 @@ export default {
             .done()
             .getTime();
         }
-        for (var i in this.filterObject) {
+        for (let i in this.filterObject) {
           if (
             this.filterObject[i].startDate == startDate &&
             this.filterObject[i].endDate == endDate
@@ -741,7 +741,7 @@ export default {
       }
       // 태그 삭제
       else {
-        for (var i in this.filterObject_union) {
+        for (let i in this.filterObject_union) {
           if (
             this.filterObject_union[i].type == "customTag" &&
             this.filterObject_union[i].tagName == node.name

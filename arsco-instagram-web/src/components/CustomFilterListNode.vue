@@ -65,7 +65,7 @@ export default {
       });
     },
     setAllChildFilter: function() {
-      var node;
+      let node;
       if (!event.target.checked) {
         console.log("자식 전체 선택 해제");
         this.$root.$children[0].setFilter(this.node, "customTags");

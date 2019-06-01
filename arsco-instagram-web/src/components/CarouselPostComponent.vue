@@ -39,7 +39,7 @@ export default {
     };
   },
   mounted() {
-    var tempHeight;
+    let tempHeight;
     $(this.$el)
       .find(".carousel.carousel-slider")
       .carousel({
@@ -48,7 +48,7 @@ export default {
       });
 
     this.elWidth = this.$el.clientWidth;
-    for (var i in this.item.carousel_media) {
+    for (let i in this.item.carousel_media) {
       if (this.item.carousel_media[i].type == "image") {
         tempHeight =
           this.item.carousel_media[i].images[this.config.RESOLUTION_TYPE]
@@ -75,7 +75,7 @@ export default {
       this.activeImg = this.imgs[index];
     },
     getMediaUrl: function(type, url) {
-      var fileName = _getFileNameFromUrl(url);
+      let fileName = _getFileNameFromUrl(url);
       if (type == "image") {
         if (this.config.USE_ARSCO_SERVER) {
           return (

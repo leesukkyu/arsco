@@ -19,7 +19,10 @@ export default {
                 endDate: new _Date(this.selectDate.end.getTime()).end().done().getTime(),
                 periodType: 'custom'
             })
-            vm.menus.date.map['custom'].checked = false;
+            this.$parent.$parent.menus.date.map['custom'].checked = false;
+            this.$nextTick(function(){
+                window.lazy();
+            })
         }
     }
 }
