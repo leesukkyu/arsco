@@ -1,0 +1,169 @@
+/* login.html */
+
+.loginWrap {
+    
+}
+.loginWrap .mainLogoBox{
+   margin-top: 36px;
+   margin-bottom: 70px;
+}
+.loginWrap .txtWrap {
+    margin-top: 31px;
+    font-size: 36px;
+    margin-bottom: 76px;
+}
+.loginWrap .selvyTxt {
+    color: #00afef;
+}
+.loginWrap .checkUpTxt {
+    color: #6d6e71;
+}
+.loginWrap .inputBox {
+    width: 361px;
+    height: 40px;
+    padding: 2px 0 0 0;
+    margin: 43px auto 0;
+    border-bottom: solid 1px #b5b6bc;
+    overflow: visible;
+    box-sizing: border-box;
+    position: relative;
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    transition: all 0.30s ease-in-out;
+}
+.loginWrap .inputBox.active,
+.loginWrap .inputBox.error.active{
+    border-bottom: solid 1px #26abe1;
+}
+.loginWrap .inputBox.error{
+    border-bottom:solid 1px #ee6723;
+}
+.loginWrap .inputBox.idBox.error + .inputBox.pwBox{
+    margin-top:62px;
+}
+.loginWrap .inputBox.pwBox.error{
+    margin-bottom: 35px;
+}
+.loginWrap .focusTxt{
+    letter-spacing: -1px;
+    position: absolute;
+    color: rgba(0,0,0,0);
+    transition:color 0.1s ease,top 0.34s ease;
+    z-index: 0;
+	top: -20px;
+    left: -1px;
+}
+.loginWrap .inputBox.active .focusTxt{
+    z-index: 2;
+    color: rgba(0,0,0,0.6);
+        transition:color 0.85s ease,top 0.34s ease;
+}
+.loginWrap .inputBox.hasValue .focusTxt,
+.loginWrap .inputBox.active.hasValue .focusTxt{
+    z-index: 2;
+    color: #555eaa;
+        transition:color 0.85s ease,top 0.34s ease;
+}
+.loginWrap .errorTxt{
+    color: #ee6723;
+    font-size: 12px;
+    position: absolute;
+    bottom: -17px;
+    opacity: 0;
+    word-spacing: -1px;
+}
+.loginWrap .inputBox.error .errorTxt{
+    opacity: 1;
+}
+.loginWrap .loginInput {
+    position: relative;
+    z-index: 1;
+    font-size: 18px;
+    width: 367px;
+    outline: none;
+    height: 35px;
+    margin: 0 0 0 -3px;
+    padding: 0 1px;
+    border: solid 1px transparent;
+    color: #000;
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    transition: all 0.30s ease-in-out;
+}
+.loginWrap .inputBox.active .loginInput {
+    color: #000;
+}
+.loginWrap .loginInput::-webkit-input-placeholder {
+    color: #b5b6bc;
+    transition: color 0.34s ease;
+}
+.loginWrap .loginInput::-moz-placeholder {
+    color: #b5b6bc;
+}
+.loginWrap .loginInput:-ms-input-placeholder {
+    color: #b5b6bc;
+}
+.loginWrap .loginInput:-moz-placeholder {
+    color: #b5b6bc;
+}
+.loginWrap .loginInput:hover::-webkit-input-placeholder {
+    color: #aaabb2;
+}
+.loginWrap .loginInput:hover::-moz-placeholder {
+    color: #aaabb2;
+}
+.loginWrap .loginInput:hover:-ms-input-placeholder {
+    color: #aaabb2;
+}
+.loginWrap .loginInput:hover:-moz-placeholder {
+    color: #aaabb2;
+}
+.loginWrap .loginInput:focus::-webkit-input-placeholder {
+    color: #000;
+}
+.loginWrap .loginInput:focus::-moz-placeholder {
+    color: #000;
+}
+.loginWrap .loginInput:focus:-ms-input-placeholder {
+    color: #000;
+}
+.loginWrap .loginInput:focus:-moz-placeholder {
+    color: #000;
+}
+.loginWrap .loginBtnBox{
+    margin-top: 16px;
+}
+.loginWrap .loginBtn {
+    color: #fff;
+    transition: border-radius 0.63s, box-shadow 0.3s;
+    border-radius: 0px;
+    width: 360px;
+    height: 60px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    position: relative;
+    top:0px;
+    font-size: 17px;
+    -webkit-transition: background 0.54s ease-in-out;
+    -moz-transition: background 0.54s ease-in-out;
+    -ms-transition: background 0.54s ease-in-out;
+    -o-transition: background 0.54s ease-in-out;
+    transition: background 0.54s ease-in-out;
+     background:#2d3593;
+}
+.loginWrap .loginBtn[disabled]{
+    background: #d3d6ea;
+}
+.loginWrap .loginBtn:active {
+    top:1px;
+}
+
+
+.menuTitle.history {
+    padding: 29px 0 56px 5px
+}

@@ -1,5 +1,5 @@
 <template>
-  <v-date-picker :mode='mode' show-caps v-model='selectDate' is-inline popover-visibility="'hidden'" @input="select()"></v-date-picker>
+  <v-date-picker :mode='mode' show-caps v-model='selectDate' is-inline  @input="select()"></v-date-picker>
 </template>
 
 <script>
@@ -10,6 +10,30 @@ export default {
             mode: 'range',
             selectDate: null
         }
+    },
+    beforeCreate() {
+        console.log('beforeCreate');
+    },
+    created() {
+      console.log('created');  
+    },
+    beforeMount() {
+        console.log('beforeMount');
+    },
+    mounted() {
+        console.log('mounted');
+    },
+    beforeUpdate() {
+        console.log('beforeUpdate');
+    },
+    updated() {
+        console.log('updated');
+    },
+    beforeDestroy() {
+        console.log('beforeDestroy');
+    },
+    destroyed() {
+       console.log('destroyed'); 
     },
     methods: {
         select: function () {
