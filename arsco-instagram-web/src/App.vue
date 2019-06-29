@@ -108,14 +108,6 @@
       </div>
     </div>
 
-    <!-- 원래 주석 <transition-group name="post-wrap" tag="ul" class="post-wrap clearfix">
-			<li v-for="(item, index) in filteredList" :key="index" class="post-box">
-				<image-post-component v-if="item.type == 'image'" :item="item"></image-post-component>
-				<video-post-component v-if="item.type == 'video'" :item="item"></video-post-component>
-				<carousel-post-component v-if="item.type == 'carousel'" :item="item"></carousel-post-component>
-			</li>
-    </transition-group>-->
-
     <div
       v-if="!isMobile"
       tag="div"
@@ -123,23 +115,70 @@
       class="post-content-area"
       style="max-width:1920px;margin:auto;"
     >
-      <masonry :cols="4" class="post-wrap clearfix">
-        <div v-for="item in filteredList" :key="item._id" @click="openPopup(item)" class="post-box">
-          <image-post-component v-if="item.type == 'image'" :item="item" :config="config"></image-post-component>
-          <video-post-component v-if="item.type == 'video'" :item="item" :config="config"></video-post-component>
-          <carousel-post-component v-if="item.type == 'carousel'" :item="item" :config="config"></carousel-post-component>
+      <div :cols="4" class="post-wrap clearfix">
+        <div class="post-box-wrap">
+          <div
+            v-for="(item, index) in filteredList"
+            :key="item._id"
+            @click="openPopup(item)"
+            class="post-box"
+            v-if="index %4 == 0"
+          >
+            <image-post-component v-if="item.type == 'image'" :item="item" :config="config"></image-post-component>
+            <video-post-component v-if="item.type == 'video'" :item="item" :config="config"></video-post-component>
+            <carousel-post-component v-if="item.type == 'carousel'" :item="item" :config="config"></carousel-post-component>
+          </div>
         </div>
-      </masonry>
+        <div class="post-box-wrap">
+          <div
+            v-for="(item, index) in filteredList"
+            :key="item._id"
+            @click="openPopup(item)"
+            class="post-box"
+            v-if="index %4 == 1"
+          >
+            <image-post-component v-if="item.type == 'image'" :item="item" :config="config"></image-post-component>
+            <video-post-component v-if="item.type == 'video'" :item="item" :config="config"></video-post-component>
+            <carousel-post-component v-if="item.type == 'carousel'" :item="item" :config="config"></carousel-post-component>
+          </div>
+        </div>
+        <div class="post-box-wrap">
+          <div
+            v-for="(item, index) in filteredList"
+            :key="item._id"
+            @click="openPopup(item)"
+            class="post-box"
+            v-if="index %4 == 2"
+          >
+            <image-post-component v-if="item.type == 'image'" :item="item" :config="config"></image-post-component>
+            <video-post-component v-if="item.type == 'video'" :item="item" :config="config"></video-post-component>
+            <carousel-post-component v-if="item.type == 'carousel'" :item="item" :config="config"></carousel-post-component>
+          </div>
+        </div>
+        <div class="post-box-wrap">
+          <div
+            v-for="(item, index) in filteredList"
+            :key="item._id"
+            @click="openPopup(item)"
+            class="post-box"
+            v-if="index %4 == 3"
+          >
+            <image-post-component v-if="item.type == 'image'" :item="item" :config="config"></image-post-component>
+            <video-post-component v-if="item.type == 'video'" :item="item" :config="config"></video-post-component>
+            <carousel-post-component v-if="item.type == 'carousel'" :item="item" :config="config"></carousel-post-component>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div v-else tag="div" name="post-content-area" class="post-content-area">
-      <masonry :cols="2" class="post-wrap clearfix">
+      <div :cols="2" class="post-wrap clearfix">
         <div v-for="item in filteredList" :key="item._id" @click="openPopup(item)" class="post-box">
           <image-post-component v-if="item.type == 'image'" :item="item" :config="config"></image-post-component>
           <video-post-component v-if="item.type == 'video'" :item="item" :config="config"></video-post-component>
           <carousel-post-component v-if="item.type == 'carousel'" :item="item" :config="config"></carousel-post-component>
         </div>
-      </masonry>
+      </div>
     </div>
 
     <div v-show="!beforeLoad && filteredList.length == 0" class="noFilteredList">
@@ -316,16 +355,17 @@ export default {
           }.bind(this),
           200
         );
-        this.$nextTick(function() {
-          this.$nextTick(function() {
-            window.lazy();
-          });
-        });
       });
     });
   },
   mounted() {
     console.log("xx");
+  },
+  updated() {
+    this.$nextTick(function() {
+      console.log("updated");
+      window.lazy();
+    });
   },
   computed: {
     filteredList() {
@@ -574,9 +614,6 @@ export default {
       } else if (type == "date") {
         this.setFilterByDate(node, forceValue);
       }
-      this.$nextTick(function() {
-        window.lazy();
-      });
     },
     // 태그로 필터 걸기
     setFilterByTag(node, forceValue) {

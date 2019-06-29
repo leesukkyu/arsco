@@ -19,7 +19,7 @@ export default {
           this.config.ARSCO_IMAGE_PATH +
           this.config.RESOLUTION_TYPE +
           "/" +
-          _getFileNameFromUrl(url)
+          window._getFileNameFromUrl(url)
         );
       } else {
         return url;

@@ -60,9 +60,6 @@ export default {
     setFilter: function() {
       console.log('click');
       this.$root.$children[0].setFilter(this.node, "customTags");
-      this.$nextTick(function() {
-        window.lazy();
-      });
     },
     setAllChildFilter: function() {
       let node;
@@ -75,9 +72,6 @@ export default {
             this.$root.$children[0].setFilter(node[i], "customTags", false);
           }.bind(this)
         );
-        this.$nextTick(function() {
-          window.lazy();
-        });
       } else {
         console.log("자식 전체 선택");
         this.$root.$children[0].setFilter(this.node, "customTags");
@@ -87,17 +81,11 @@ export default {
             this.$root.$children[0].setFilter(node[i], "customTags", true);
           }.bind(this)
         );
-        this.$nextTick(function() {
-          window.lazy();
-        });
       }
     },
     setFilter_union:function(){
       console.log('click');
       this.$root.$children[0].setFilter_union(this.node, "customTags");
-      this.$nextTick(function() {
-        window.lazy();
-      });
     }
   }
 };

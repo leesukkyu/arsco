@@ -141,14 +141,20 @@ body {
         transform: scale(1);
     }
 }
-
+.post-box-wrap{
+    &:first-child{
+        padding-left:8px; 
+    }
+    width:25%;
+    float:left;
+    padding-right:8px;
+}
 .post-box {
     position: relative;
-    width: calc(100% - 16px);
-    margin: 8px;
+    width: 100%;
+    margin:8px 0;
     background-color: white;
     z-index: 1;
-    float: left;
     box-sizing: border-box;
     transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
     cursor: zoom-in;

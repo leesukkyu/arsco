@@ -160,13 +160,22 @@ body {
   }
 }
 
+.post-box-wrap {
+  width: 25%;
+  float: left;
+  padding-right: 8px;
+}
+
+.post-box-wrap:first-child {
+  padding-left: 8px;
+}
+
 .post-box {
   position: relative;
-  width: calc(100% - 16px);
-  margin: 8px;
+  width: 100%;
+  margin: 8px 0;
   background-color: white;
   z-index: 1;
-  float: left;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   -webkit-transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);

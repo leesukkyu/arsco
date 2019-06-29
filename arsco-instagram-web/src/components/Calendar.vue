@@ -44,9 +44,6 @@ export default {
                 periodType: 'custom'
             })
             this.$parent.$parent.menus.date.map['custom'].checked = false;
-            this.$nextTick(function(){
-                window.lazy();
-            })
         }
     }
 }

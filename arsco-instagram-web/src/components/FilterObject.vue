@@ -34,9 +34,6 @@ export default {
         }
       }
       this.$parent.filterObject.splice(this.index, 1);
-      this.$nextTick(function() {
-        window.lazy();
-      });
     },
     classObject: function() {
       if (this.item.type == "tag") {

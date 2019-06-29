@@ -74,11 +74,11 @@ export default {
               t.select();
               document.execCommand("copy");
               document.body.removeChild(t);
-              this.document.querySelector(
+              document.querySelector(
                 '.pswp [data-copy-checkbox="copyLink"]'
               ).checked = true;
               this.setTimeout(function() {
-                this.document.querySelector(
+                document.querySelector(
                   '.pswp [data-copy-checkbox="copyLink"]'
                 ).checked = false;
               }, 3000);
