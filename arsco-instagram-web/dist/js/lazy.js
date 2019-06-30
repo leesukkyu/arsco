@@ -20,13 +20,12 @@ window.lazy = function () {
     } else {
         var lazyloadThrottleTimeout;
         var lazyloadImages;
-        lazyloadImages = document.querySelectorAll(".lazy");
         var lazyload;
+        lazyloadImages = document.querySelectorAll(".lazy");
         lazyload = function () {
             if (lazyloadThrottleTimeout) {
                 clearTimeout(lazyloadThrottleTimeout);
             }
-
             lazyloadThrottleTimeout = setTimeout(function () {
                 var scrollTop = window.pageYOffset;
                 lazyloadImages.forEach(function (img) {
@@ -43,6 +42,9 @@ window.lazy = function () {
             }, 20);
         }
 
+        document.removeEventListener("scroll", lazyload);
+        window.removeEventListener("resize", lazyload);
+        window.removeEventListener("orientationChange", lazyload);
         document.addEventListener("scroll", lazyload);
         window.addEventListener("resize", lazyload);
         window.addEventListener("orientationChange", lazyload);

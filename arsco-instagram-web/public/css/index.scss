@@ -890,11 +890,12 @@ body {
 
 // 모바일
 @media (max-width: 1023px) {
+    .post-box-wrap{
+        width: 50%;
+    }
     .post-box {
         position: relative;
     }
-
-
     .filter-type-list-container {
         position: fixed;
         width: calc(100% - 20px);

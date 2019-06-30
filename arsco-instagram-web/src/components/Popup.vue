@@ -32,6 +32,11 @@
         </div>
       </div>
     </div>
+    <input
+      id="clipboard-input"
+      style="position: absolute;background: rgb(255, 255, 255);width: 1px;height: 1px;z-index: 0;"
+    />
+    <canvas crossorigin="anonymous" id="myCanvas" />
   </div>
 </template>
 
@@ -62,35 +67,14 @@ export default {
           ],
           // Parse output of share links
           parseShareButtonOut: (function() {
-            // 클립보드에 링크 복사
-            window.copyLinkToClipBoard = function(e) {
-              if (e) {
-                e.stopPropagation();
-                e.preventDefault();
-              }
-              let t = document.createElement("textarea");
-              document.body.appendChild(t);
-              t.value = gallery.currItem.src;
-              t.select();
-              document.execCommand("copy");
-              document.body.removeChild(t);
-              document.querySelector(
-                '.pswp [data-copy-checkbox="copyLink"]'
-              ).checked = true;
-              this.setTimeout(function() {
-                document.querySelector(
-                  '.pswp [data-copy-checkbox="copyLink"]'
-                ).checked = false;
-              }, 3000);
-            };
             return function(shareButtonData, shareButtonOut) {
               if (shareButtonData.id == "download") {
                 return shareButtonOut;
               } else if (shareButtonData.id == "copylink") {
                 return (
-                  '<a onclick="downloadImg(event)" data-href="' +
+                  '<a style="cursor:pointer;" data-href="' +
                   gallery.currItem.src +
-                  '" id="downloadImgLink">다운로드</a><a style="cursor:pointer;" onclick="copyLinkToClipBoard(event);">copyLink<div id="copyCheckboxWrap" class="copy-checkbox-container"><input data-copy-checkbox="copyLink" type="checkbox" id="cbtest"><label for="cbtest" class="check-box" style="vertical-align: top;"></label></div></a>'
+                  '" id="downloadImgLink" onclick="window.downloadImg(event)">다운로드</a><a data-clipboard-target="#clipboard-input" data-clip-board style="cursor:pointer;">copyLink</a>'
                 );
               }
             };
@@ -165,24 +149,45 @@ export default {
           options
         );
         gallery.listen("destroy", function() {
-          console.log((_this.$parent.popupPost = null));
+          _this.$parent.popupPost = null;
+          window.clipboard.destroy();
+        });
+        gallery.listen("afterChange", function(a) {
+          $("#clipboard-input").val(this.currItem.src);
         });
         gallery.init();
-        window.gallery = gallery;
+
+        // 클립보드 설정
+        window.clipboard = new ClipboardJS("[data-clipboard-target]");
+        window.clipboard.on("success", function(e) {
+          M.toast({ html: "복사되었습니다.", classes: "rounded" });
+          console.log("test7");
+        });
+        // 이미지 다운로드
         window.downloadImg = function(e) {
+          e.stopPropagation();
           e.preventDefault();
-          let x = new XMLHttpRequest();
-          let href = $(e.target).attr("data-href");
-          x.open("GET", href, true);
-          x.responseType = "blob";
-          x.onload = function(e) {
-            download(
-              x.response,
-              href.slice(href.lastIndexOf("/") + 1, href.lastIndexOf("?")),
-              "image/gif"
-            );
-          };
-          x.send();
+          try {
+            download($(e.target).attr("data-href"), "test2.jpg")
+            // alert("xxxxxx");
+            // console.log("test0");
+            // var c = document.getElementById("myCanvas");
+            // $(c)
+            //   .attr("width", gallery.currItem.w)
+            //   .attr("height", gallery.currItem.h);
+            // var ctx = c.getContext("2d");
+            // var img = new Image();
+            // $("img.pswp__img").attr("crossOrigin", "Anonymous");
+            // img.setAttribute("crossOrigin", "anonymous");
+            // img.src = $(e.target).attr("data-href");
+            // img.onload = function() {
+            //   ctx.drawImage(img, 0, 0);
+            //   var base64 = c.toDataURL();
+            //   saveAs(c.toDataURL(), "test.jpg")
+            // };
+          } catch (error) {
+            console.log(error);
+          }
         };
       }
     }

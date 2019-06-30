@@ -173,10 +173,31 @@
 
     <div v-else tag="div" name="post-content-area" class="post-content-area">
       <div :cols="2" class="post-wrap clearfix">
-        <div v-for="item in filteredList" :key="item._id" @click="openPopup(item)" class="post-box">
-          <image-post-component v-if="item.type == 'image'" :item="item" :config="config"></image-post-component>
-          <video-post-component v-if="item.type == 'video'" :item="item" :config="config"></video-post-component>
-          <carousel-post-component v-if="item.type == 'carousel'" :item="item" :config="config"></carousel-post-component>
+        <div class="post-box-wrap">
+          <div
+            v-for="(item, index) in filteredList"
+            :key="item._id"
+            @click="openPopup(item)"
+            class="post-box"
+            v-if="index %2 == 0"
+          >
+            <image-post-component v-if="item.type == 'image'" :item="item" :config="config"></image-post-component>
+            <video-post-component v-if="item.type == 'video'" :item="item" :config="config"></video-post-component>
+            <carousel-post-component v-if="item.type == 'carousel'" :item="item" :config="config"></carousel-post-component>
+          </div>
+        </div>
+        <div class="post-box-wrap">
+          <div
+            v-for="(item, index) in filteredList"
+            :key="item._id"
+            @click="openPopup(item)"
+            class="post-box"
+            v-if="index %2 == 1"
+          >
+            <image-post-component v-if="item.type == 'image'" :item="item" :config="config"></image-post-component>
+            <video-post-component v-if="item.type == 'video'" :item="item" :config="config"></video-post-component>
+            <carousel-post-component v-if="item.type == 'carousel'" :item="item" :config="config"></carousel-post-component>
+          </div>
         </div>
       </div>
     </div>
