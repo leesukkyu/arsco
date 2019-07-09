@@ -157,9 +157,12 @@ export default {
         // 갤러리 변경 훅.
         gallery.listen("afterChange", function(a) {
           var copyLink;
-          copyLink = this.currItem.src.replace(this.currItem.src.replace(ARSCO_CONFIG.IP_DOMAIN, ARSCO_CONFIG.DNS_DOMAIN))
+          copyLink = this.currItem.src.replace(ARSCO_CONFIG.IP_DOMAIN, ARSCO_CONFIG.DNS_DOMAIN);
+          if(copyLink.lastIndexOf('?')){
+            copyLink = copyLink.slice(0, copyLink.lastIndexOf('?'))
+          }
           $("#clipboard-input").val(copyLink);
-          $(".pswp__item").on('mousedown','.pswp__img', function(e){
+          $(".pswp__item").on('mousedown, touchstart','.pswp__img', function(e){
             e.stopPropagation();
           })
         });

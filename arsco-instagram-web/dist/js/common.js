@@ -1,7 +1,9 @@
 // 설정
 var ARSCO_CONFIG = {
     ARSCO_ID: 'arsco.co.kr',
-    ARSCO_MEDIA_SERVER: 'http://ec2-18-220-151-89.us-east-2.compute.amazonaws.com:3003'
+    ARSCO_MEDIA_SERVER: 'http://ec2-18-220-151-89.us-east-2.compute.amazonaws.com:3003',
+    IP_DOMAIN : 'http://ec2-18-220-151-89.us-east-2.compute.amazonaws.com',
+    DNS_DOMAIN : 'http://web.sososowork.com'
 }
 // UTIL
 var _COPY = function (obj) {
