@@ -142,18 +142,26 @@ export default {
           }
           items.push(obj);
         }
+        // 갤러리 시작.
         gallery = new PhotoSwipe(
           pswpElement,
           PhotoSwipeUI_Default,
           items,
           options
         );
+        // 갤러리 후처리.
         gallery.listen("destroy", function() {
           _this.$parent.popupPost = null;
           window.clipboard.destroy();
         });
+        // 갤러리 변경 훅.
         gallery.listen("afterChange", function(a) {
-          $("#clipboard-input").val(this.currItem.src);
+          var copyLink;
+          copyLink = this.currItem.src.replace(this.currItem.src.replace(ARSCO_CONFIG.IP_DOMAIN, ARSCO_CONFIG.DNS_DOMAIN))
+          $("#clipboard-input").val(copyLink);
+          $(".pswp__item").on('mousedown','.pswp__img', function(e){
+            e.stopPropagation();
+          })
         });
         gallery.init();
 
@@ -168,7 +176,7 @@ export default {
           e.stopPropagation();
           e.preventDefault();
           try {
-            download($(e.target).attr("data-href"), "test2.jpg")
+            download($(e.target).attr("data-href"), "test2.jpg");
             // alert("xxxxxx");
             // console.log("test0");
             // var c = document.getElementById("myCanvas");
