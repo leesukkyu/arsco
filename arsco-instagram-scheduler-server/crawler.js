@@ -31,8 +31,6 @@ sendMsg = function () {
 	var options = {
 		url: 'https://api-sens.ncloud.com/v1/sms/services/ncp:sms:kr:254889181571:arsco_instagram/messages',
 		headers: {
-			'X-NCP-auth-key': 'JsSMI1pqn5oMKHdpXMsM',
-			'X-NCP-service-secret': 'ad0a6a0338434b51ad57b11fb79de8ee',
 			'content-type': 'application/json'
 		},
 		json: {
