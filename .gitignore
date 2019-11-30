@@ -2,5 +2,7 @@
 node_modules
 # log
 logs
-#crawl image
+# crawl image
 images
+# 프로젝트 내 모든 설정 파일
+arsco-common/config.js

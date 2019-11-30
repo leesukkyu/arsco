@@ -1,19 +1,25 @@
-var mongoose = require('mongoose');
-var Config = require('../config');
+const CONFIG = require('../config');
+const LOGGER = require('../logger');
 
-var connent = function () {
-    mongoose.connect(Config.db.uri,
-        {
-            useNewUrlParser: true,
-        }).catch((error) => { console.log(error); });
-    return mongoose;
-}
+const mongoose = require('mongoose');
 
-var close = function(){
-    mongoose.connection.close();
-}
+const connent = function() {
+  mongoose
+    .connect(CONFIG.db.uri, {
+      useNewUrlParser: true,
+      useFindAndModify: false,
+    })
+    .catch(error => {
+      LOGGER.info('디비 연결 실패');
+    });
+  return mongoose;
+};
+
+const close = function() {
+  mongoose.connection.close();
+};
 
 module.exports = {
-    connect: connent,
-    close : close
-}
+  connect: connent,
+  close: close,
+};
