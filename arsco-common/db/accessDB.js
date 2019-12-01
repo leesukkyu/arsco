@@ -8,6 +8,7 @@ const connent = function() {
     .connect(CONFIG.db.uri, {
       useNewUrlParser: true,
       useFindAndModify: false,
+      useUnifiedTopology: true,
     })
     .catch(error => {
       LOGGER.info('디비 연결 실패');

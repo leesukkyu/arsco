@@ -1,7 +1,7 @@
 <template>
   <div>
     <label class="company-title">
-      <img @click="init()" src="images/logo_horizontal.svg" class="logo-img">
+      <img @click="init()" src="images/logo_horizontal.svg" class="logo-img" />
     </label>
     <div class="nav-wrap">
       <ul class="nav-box">
@@ -10,22 +10,27 @@
           v-for="(item, menu_name, index) in menus"
           :key="index"
           :class="{
-					active : item.isActive
-				}"
+            active: item.isActive,
+          }"
           @click="openFilterListWrap(item, menu_name, menus)"
-        >{{menu_name}}</li>
+        >
+          {{ menu_name }}
+        </li>
       </ul>
     </div>
 
     <div>
       <div v-if="filterObject.length != 0" class="filter-object-wrap">
-        <span class="ti-filter vm arsco-color filter-object-title"></span>
+        <i class="material-icons vm arsco-color filter-object-title">
+          filter_list
+        </i>
         <filter-object
           v-for="(item, index) in filterObject"
           :key="index"
           :item="item"
           :index="index"
-        >{{item}}</filter-object>
+          >{{ item }}</filter-object
+        >
       </div>
     </div>
 
@@ -54,24 +59,35 @@
             v-for="(node, index) in menu.list"
             :key="index"
             :class="{
-							'active' : node.checked,
-						  }"
+              active: node.checked,
+            }"
           >
-            <button class="filter-list-btn" @click="setFilter(node, menu_name)">{{node.name}}</button>
+            <button class="filter-list-btn" @click="setFilter(node, menu_name)">
+              {{ node.name }}
+            </button>
           </li>
         </ul>
 
         <div class="calendar-wrap" v-show="calendarViewModel">
           <calendar></calendar>
         </div>
-        <div @click="closeFilterContainer()" class="filter-type-list-container-close-btn">
-          <span class="ti-close"></span>
+        <div
+          @click="closeFilterContainer()"
+          class="filter-type-list-container-close-btn"
+        >
+          <i class="material-icons">
+            close
+          </i>
         </div>
       </div>
     </transition-group>
 
     <!-- 모바일 -->
-    <div v-else-if="isMobile && checkMenuOpen" tag="div" class="filter-type-list-container">
+    <div
+      v-else-if="isMobile && checkMenuOpen"
+      tag="div"
+      class="filter-type-list-container"
+    >
       <div v-on:scroll.stop style="height:100%;overflow: scroll;">
         <div
           v-for="(menu, menu_name, index) in menus"
@@ -91,10 +107,15 @@
               v-for="(node, index) in menu.list"
               :key="index"
               :class="{
-							'active' : node.checked,
-						  }"
+                active: node.checked,
+              }"
             >
-              <button class="filter-list-btn" @click="setFilter(node, menu_name)">{{node.name}}</button>
+              <button
+                class="filter-list-btn"
+                @click="setFilter(node, menu_name)"
+              >
+                {{ node.name }}
+              </button>
             </li>
           </ul>
 
@@ -103,8 +124,13 @@
           </div>
         </div>
       </div>
-      <div @click="closeFilterContainer()" class="filter-type-list-container-close-btn">
-        <span class="ti-close"></span>
+      <div
+        @click="closeFilterContainer()"
+        class="filter-type-list-container-close-btn"
+      >
+        <i class="material-icons">
+          close
+        </i>
       </div>
     </div>
 
@@ -122,11 +148,23 @@
             :key="item._id"
             @click="openPopup(item)"
             class="post-box"
-            v-if="index %4 == 0"
+            v-if="index % 4 == 0"
           >
-            <image-post-component v-if="item.type == 'image'" :item="item" :config="config"></image-post-component>
-            <video-post-component v-if="item.type == 'video'" :item="item" :config="config"></video-post-component>
-            <carousel-post-component v-if="item.type == 'carousel'" :item="item" :config="config"></carousel-post-component>
+            <image-post-component
+              v-if="item.type == 'image'"
+              :item="item"
+              :config="config"
+            ></image-post-component>
+            <video-post-component
+              v-if="item.type == 'video'"
+              :item="item"
+              :config="config"
+            ></video-post-component>
+            <carousel-post-component
+              v-if="item.type == 'carousel'"
+              :item="item"
+              :config="config"
+            ></carousel-post-component>
           </div>
         </div>
         <div class="post-box-wrap">
@@ -135,11 +173,23 @@
             :key="item._id"
             @click="openPopup(item)"
             class="post-box"
-            v-if="index %4 == 1"
+            v-if="index % 4 == 1"
           >
-            <image-post-component v-if="item.type == 'image'" :item="item" :config="config"></image-post-component>
-            <video-post-component v-if="item.type == 'video'" :item="item" :config="config"></video-post-component>
-            <carousel-post-component v-if="item.type == 'carousel'" :item="item" :config="config"></carousel-post-component>
+            <image-post-component
+              v-if="item.type == 'image'"
+              :item="item"
+              :config="config"
+            ></image-post-component>
+            <video-post-component
+              v-if="item.type == 'video'"
+              :item="item"
+              :config="config"
+            ></video-post-component>
+            <carousel-post-component
+              v-if="item.type == 'carousel'"
+              :item="item"
+              :config="config"
+            ></carousel-post-component>
           </div>
         </div>
         <div class="post-box-wrap">
@@ -148,11 +198,23 @@
             :key="item._id"
             @click="openPopup(item)"
             class="post-box"
-            v-if="index %4 == 2"
+            v-if="index % 4 == 2"
           >
-            <image-post-component v-if="item.type == 'image'" :item="item" :config="config"></image-post-component>
-            <video-post-component v-if="item.type == 'video'" :item="item" :config="config"></video-post-component>
-            <carousel-post-component v-if="item.type == 'carousel'" :item="item" :config="config"></carousel-post-component>
+            <image-post-component
+              v-if="item.type == 'image'"
+              :item="item"
+              :config="config"
+            ></image-post-component>
+            <video-post-component
+              v-if="item.type == 'video'"
+              :item="item"
+              :config="config"
+            ></video-post-component>
+            <carousel-post-component
+              v-if="item.type == 'carousel'"
+              :item="item"
+              :config="config"
+            ></carousel-post-component>
           </div>
         </div>
         <div class="post-box-wrap">
@@ -161,11 +223,23 @@
             :key="item._id"
             @click="openPopup(item)"
             class="post-box"
-            v-if="index %4 == 3"
+            v-if="index % 4 == 3"
           >
-            <image-post-component v-if="item.type == 'image'" :item="item" :config="config"></image-post-component>
-            <video-post-component v-if="item.type == 'video'" :item="item" :config="config"></video-post-component>
-            <carousel-post-component v-if="item.type == 'carousel'" :item="item" :config="config"></carousel-post-component>
+            <image-post-component
+              v-if="item.type == 'image'"
+              :item="item"
+              :config="config"
+            ></image-post-component>
+            <video-post-component
+              v-if="item.type == 'video'"
+              :item="item"
+              :config="config"
+            ></video-post-component>
+            <carousel-post-component
+              v-if="item.type == 'carousel'"
+              :item="item"
+              :config="config"
+            ></carousel-post-component>
           </div>
         </div>
       </div>
@@ -179,11 +253,23 @@
             :key="item._id"
             @click="openPopup(item)"
             class="post-box"
-            v-if="index %2 == 0"
+            v-if="index % 2 == 0"
           >
-            <image-post-component v-if="item.type == 'image'" :item="item" :config="config"></image-post-component>
-            <video-post-component v-if="item.type == 'video'" :item="item" :config="config"></video-post-component>
-            <carousel-post-component v-if="item.type == 'carousel'" :item="item" :config="config"></carousel-post-component>
+            <image-post-component
+              v-if="item.type == 'image'"
+              :item="item"
+              :config="config"
+            ></image-post-component>
+            <video-post-component
+              v-if="item.type == 'video'"
+              :item="item"
+              :config="config"
+            ></video-post-component>
+            <carousel-post-component
+              v-if="item.type == 'carousel'"
+              :item="item"
+              :config="config"
+            ></carousel-post-component>
           </div>
         </div>
         <div class="post-box-wrap">
@@ -192,25 +278,47 @@
             :key="item._id"
             @click="openPopup(item)"
             class="post-box"
-            v-if="index %2 == 1"
+            v-if="index % 2 == 1"
           >
-            <image-post-component v-if="item.type == 'image'" :item="item" :config="config"></image-post-component>
-            <video-post-component v-if="item.type == 'video'" :item="item" :config="config"></video-post-component>
-            <carousel-post-component v-if="item.type == 'carousel'" :item="item" :config="config"></carousel-post-component>
+            <image-post-component
+              v-if="item.type == 'image'"
+              :item="item"
+              :config="config"
+            ></image-post-component>
+            <video-post-component
+              v-if="item.type == 'video'"
+              :item="item"
+              :config="config"
+            ></video-post-component>
+            <carousel-post-component
+              v-if="item.type == 'carousel'"
+              :item="item"
+              :config="config"
+            ></carousel-post-component>
           </div>
         </div>
       </div>
     </div>
 
-    <div v-show="!beforeLoad && filteredList.length == 0" class="noFilteredList">
+    <div
+      v-show="!beforeLoad && filteredList.length == 0"
+      class="noFilteredList"
+    >
       <div>
-        <span class="ti-face-sad"></span>
+        <i class="material-icons face-sad">
+          sentiment_very_dissatisfied
+        </i>
       </div>
       <span class="text">해당 포스트가 없습니다.</span>
     </div>
 
     <transition name="popup">
-      <popup tag="div" v-show="popupPost" :post="popupPost" :config="config"></popup>
+      <popup
+        tag="div"
+        v-show="popupPost"
+        :post="popupPost"
+        :config="config"
+      ></popup>
     </transition>
 
     <transition name="ajax">
@@ -220,83 +328,83 @@
 </template>
 
 <script>
-import AjaxLoadingAnimation from "./components/AjaxLoadingAnimation.vue";
-import Calendar from "./components/Calendar.vue";
-import CarouselPostComponent from "./components/CarouselPostComponent.vue";
-import CustomFilterListNode from "./components/CustomFilterListNode.vue";
-import CustomFilterListWrap from "./components/CustomFilterListWrap.vue";
-import FilterObject from "./components/FilterObject.vue";
-import ImagePostComponent from "./components/ImagePostComponent.vue";
-import Popup from "./components/Popup.vue";
-import VideoPostComponent from "./components/VideoPostComponent.vue";
+import AjaxLoadingAnimation from './components/AjaxLoadingAnimation.vue';
+import Calendar from './components/Calendar.vue';
+import CarouselPostComponent from './components/CarouselPostComponent.vue';
+import CustomFilterListNode from './components/CustomFilterListNode.vue';
+import CustomFilterListWrap from './components/CustomFilterListWrap.vue';
+import FilterObject from './components/FilterObject.vue';
+import ImagePostComponent from './components/ImagePostComponent.vue';
+import Popup from './components/Popup.vue';
+import VideoPostComponent from './components/VideoPostComponent.vue';
 
 export default {
-  name: "app",
+  name: 'app',
   components: {
-    "ajax-loading-animation": AjaxLoadingAnimation,
+    'ajax-loading-animation': AjaxLoadingAnimation,
     calendar: Calendar,
-    "carousel-post-component": CarouselPostComponent,
-    "custom-filter-list-node": CustomFilterListNode,
-    "custom-filter-list-wrap": CustomFilterListWrap,
-    "filter-object": FilterObject,
-    "image-post-component": ImagePostComponent,
+    'carousel-post-component': CarouselPostComponent,
+    'custom-filter-list-node': CustomFilterListNode,
+    'custom-filter-list-wrap': CustomFilterListWrap,
+    'filter-object': FilterObject,
+    'image-post-component': ImagePostComponent,
     popup: Popup,
-    "video-post-component": VideoPostComponent
+    'video-post-component': VideoPostComponent,
   },
   data: function() {
     return {
       config: {
         ARSCO_IMAGE_PATH:
-          ARSCO_CONFIG.ARSCO_MEDIA_SERVER +
-          "/" +
-          ARSCO_CONFIG.ARSCO_ID +
-          "/images/",
+          window.ARSCO_CONFIG.ARSCO_MEDIA_SERVER +
+          '/' +
+          window.ARSCO_CONFIG.ARSCO_ID +
+          '/images/',
         ARSCO_VIDEO_PATH:
-          ARSCO_CONFIG.ARSCO_MEDIA_SERVER +
-          "/" +
-          ARSCO_CONFIG.ARSCO_ID +
-          "/videos/",
+          window.ARSCO_CONFIG.ARSCO_MEDIA_SERVER +
+          '/' +
+          window.ARSCO_CONFIG.ARSCO_ID +
+          '/videos/',
         USE_ARSCO_SERVER: false,
-        RESOLUTION_TYPE: ""
+        RESOLUTION_TYPE: '',
       },
       menus: {
         // 화면에 표시 될 view data
         customTags: {
           isActive: false,
           list: [],
-          map: {}
+          map: {},
         },
         tags: {
           isActive: false,
           list: [],
-          map: {}
+          map: {},
         },
         locations: {
           isActive: false,
           list: [],
-          map: {}
+          map: {},
         },
         date: {
           isActive: false,
           list: [
             {
-              key: "week",
-              name: "일주 이내",
-              checked: false
+              key: 'week',
+              name: '일주 이내',
+              checked: false,
             },
             {
-              key: "month",
-              name: "한달 이내",
-              checked: false
+              key: 'month',
+              name: '한달 이내',
+              checked: false,
             },
             {
-              key: "custom",
-              name: "특정 기간 검색",
-              checked: false
-            }
+              key: 'custom',
+              name: '특정 기간 검색',
+              checked: false,
+            },
           ],
-          map: {}
-        }
+          map: {},
+        },
       },
       // 전체 게시물
       posts: [],
@@ -307,7 +415,7 @@ export default {
       // 팝업으로 뜰 포스트
       popupPost: null,
       // 로딩 중 플래그
-      beforeLoad: true
+      beforeLoad: true,
     };
   },
   beforeMount() {
@@ -315,7 +423,7 @@ export default {
     let _this = this;
     this.beforeLoad = true;
     // 설정 로딩
-    this.$http.get("/api/loadConfig.json", {}).then(rs => {
+    this.$http.get('/api/loadConfig.json', {}).then(rs => {
       // 1. 커스텀 태그 설정
       let travalTree;
       //customTags = [];
@@ -334,14 +442,14 @@ export default {
       this.menus.customTags.list = _COPY(rs.tree);
 
       // 2. 로딩 서버 설정
-      if (rs.loadServer == "arsco") {
+      if (rs.loadServer == 'arsco') {
         this.config.USE_ARSCO_SERVER = true;
       } else {
         this.config.USE_ARSCO_SERVER = false;
       }
 
       // 3. 인스타 그램 포스트 로딩
-      this.$http.get("/api/getAllPost.json", {}).then(rs => {
+      this.$http.get('/api/getAllPost.json', {}).then(rs => {
         let posts;
         let tagList = [];
         posts = rs;
@@ -363,7 +471,7 @@ export default {
             this.menus.tags.list.push({
               key: tagList[i],
               name: tagList[i],
-              checked: false
+              checked: false,
             });
             tagMap[tagList[i]] = true;
           }
@@ -374,17 +482,17 @@ export default {
           function() {
             this.beforeLoad = false;
           }.bind(this),
-          200
+          200,
         );
       });
     });
   },
   mounted() {
-    console.log("xx");
+    console.log('xx');
   },
   updated() {
     this.$nextTick(function() {
-      console.log("updated");
+      console.log('updated');
       window.lazy();
     });
   },
@@ -461,19 +569,19 @@ export default {
     calendarViewModel() {
       let _this = this;
       return (
-        _this.menus.date.isActive && _this.menus.date.map["custom"].checked
+        _this.menus.date.isActive && _this.menus.date.map['custom'].checked
       );
     },
     isMobile() {
       this.config.RESOLUTION_TYPE =
-        window.innerWidth < 1024 ? "low_resolution" : "standard_resolution";
+        window.innerWidth < 1024 ? 'low_resolution' : 'standard_resolution';
       return window.innerWidth < 1024;
     },
     checkMenuOpen() {
       return Object.values(this.menus).some(function(menu) {
         return menu.isActive;
       });
-    }
+    },
   },
   methods: {
     // 합집합 필터
@@ -485,16 +593,16 @@ export default {
         return _this.filterObject_union.some(function(obj) {
           console.log(obj);
           type = obj.type;
-          if (type == "tag") {
+          if (type == 'tag') {
             return post.tags.some(function(tag) {
               return obj.tagName == tag;
             });
           }
-          if (type == "customTag") {
+          if (type == 'customTag') {
             return post.tags.some(function(tag) {
               return obj.tagName == tag;
             });
-          } else if (type == "date") {
+          } else if (type == 'date') {
             if (
               obj.startDate <= post.created_time &&
               obj.endDate >= post.created_time
@@ -517,16 +625,16 @@ export default {
         return _this.filterObject.every(function(obj) {
           console.log(obj);
           type = obj.type;
-          if (type == "tag") {
+          if (type == 'tag') {
             return post.tags.some(function(tag) {
               return obj.tagName == tag;
             });
           }
-          if (type == "customTag") {
+          if (type == 'customTag') {
             return post.tags.some(function(tag) {
               return obj.tagName == tag;
             });
-          } else if (type == "date") {
+          } else if (type == 'date') {
             if (
               obj.startDate <= post.created_time &&
               obj.endDate >= post.created_time
@@ -560,16 +668,16 @@ export default {
         this.menus.customTags.list,
         function(node, i, parentNode) {
           if (parentNode) {
-            Object.defineProperty(node[i], "parentNode", {
+            Object.defineProperty(node[i], 'parentNode', {
               enumerable: false,
               configurable: false,
               writable: false,
-              value: parentNode
+              value: parentNode,
             });
           }
-          this.menus.customTags.map[node[i].key ? node[i].key : "root"] =
+          this.menus.customTags.map[node[i].key ? node[i].key : 'root'] =
             node[i];
-        }.bind(this)
+        }.bind(this),
       );
       console.log(this);
     },
@@ -603,7 +711,7 @@ export default {
             }
             break;
           }
-          if (typeof node[i] == "object") {
+          if (typeof node[i] == 'object') {
             search(node[i]);
           }
         }
@@ -628,11 +736,11 @@ export default {
     },
     // 필터 걸기 전처기리
     setFilter(node, type, forceValue) {
-      if (type == "tags") {
+      if (type == 'tags') {
         this.setFilterByTag(node, forceValue);
-      } else if (type == "customTags") {
+      } else if (type == 'customTags') {
         this.setFilterByCustomTag(node, forceValue);
-      } else if (type == "date") {
+      } else if (type == 'date') {
         this.setFilterByDate(node, forceValue);
       }
     },
@@ -649,16 +757,16 @@ export default {
       // 태그 추가
       if (node.checked) {
         this.filterObject.push({
-          type: "tag",
+          type: 'tag',
           tagName: node.name,
-          node: node
+          node: node,
         });
       }
       // 태그 삭제
       else {
         for (let i in this.filterObject) {
           if (
-            this.filterObject[i].type == "tag" &&
+            this.filterObject[i].type == 'tag' &&
             this.filterObject[i].tagName == node.name
           ) {
             this.filterObject.splice(i, 1);
@@ -680,16 +788,16 @@ export default {
       // 태그 추가
       if (node.checked) {
         this.filterObject.push({
-          type: "customTag",
+          type: 'customTag',
           tagName: node.name,
-          node: node
+          node: node,
         });
       }
       // 태그 삭제
       else {
         for (let i in this.filterObject) {
           if (
-            this.filterObject[i].type == "customTag" &&
+            this.filterObject[i].type == 'customTag' &&
             this.filterObject[i].tagName == node.name
           ) {
             this.filterObject.splice(i, 1);
@@ -706,9 +814,9 @@ export default {
       }
       // 날짜 추가
       if (node.checked) {
-        if (node.key == "week") {
+        if (node.key == 'week') {
           this.filterObject.push({
-            type: "date",
+            type: 'date',
             startDate: new _Date()
               .lastWeek()
               .start()
@@ -718,12 +826,12 @@ export default {
               .end()
               .done()
               .getTime(),
-            periodType: "week",
-            node: node
+            periodType: 'week',
+            node: node,
           });
-        } else if (node.key == "month") {
+        } else if (node.key == 'month') {
           this.filterObject.push({
-            type: "date",
+            type: 'date',
             startDate: new _Date()
               .lastMonth()
               .start()
@@ -733,14 +841,14 @@ export default {
               .end()
               .done()
               .getTime(),
-            periodType: "month",
-            node: node
+            periodType: 'month',
+            node: node,
           });
         }
       }
       // 날짜 삭제
       else {
-        if (node.key == "week") {
+        if (node.key == 'week') {
           startDate = new _Date()
             .lastWeek()
             .start()
@@ -750,7 +858,7 @@ export default {
             .end()
             .done()
             .getTime();
-        } else if (node.key == "month") {
+        } else if (node.key == 'month') {
           startDate = new _Date()
             .lastMonth()
             .start()
@@ -772,16 +880,16 @@ export default {
       }
     },
     setFilter_union(node, type, forceValue) {
-      if (type == "tags") {
+      if (type == 'tags') {
         this.setFilterByTag_union(node, forceValue);
-      } else if (type == "customTags") {
+      } else if (type == 'customTags') {
         this.setFilterByCustomTag_union(node, forceValue);
-      } else if (type == "date") {
+      } else if (type == 'date') {
         this.setFilterByDate_union(node, forceValue);
       }
     },
     setFilterByTag_union() {
-      console.log("태그 합집합");
+      console.log('태그 합집합');
     },
     setFilterByCustomTag_union(node, forceValue) {
       if (forceValue == undefined) {
@@ -795,16 +903,16 @@ export default {
       //태그 추가
       if (node.checked_union) {
         this.filterObject_union.push({
-          type: "customTag",
+          type: 'customTag',
           tagName: node.name,
-          node: node
+          node: node,
         });
       }
       // 태그 삭제
       else {
         for (let i in this.filterObject_union) {
           if (
-            this.filterObject_union[i].type == "customTag" &&
+            this.filterObject_union[i].type == 'customTag' &&
             this.filterObject_union[i].tagName == node.name
           ) {
             this.filterObject_union.splice(i, 1);
@@ -813,7 +921,7 @@ export default {
       }
     },
     setFilterByDate_union() {
-      console.log("날짜 합집합");
+      console.log('날짜 합집합');
     },
     // 팝업 오픈
     openPopup(post) {
@@ -832,7 +940,7 @@ export default {
         });
       });
       this.filterObject = [];
-    }
-  }
+    },
+  },
 };
 </script>

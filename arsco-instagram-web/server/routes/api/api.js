@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const Post = require('../../../arsco-common/db/models/Post');
-const Config = require('../../../arsco-common/db/models/Config');
-const Deleted = require('../../../arsco-common/db/models/Deleted');
+const Post = require('../../../../arsco-common/db/models/Post');
+const Config = require('../../../../arsco-common/db/models/Config');
+const Deleted = require('../../../../arsco-common/db/models/Deleted');
 
 /* GET home page. */
 router.get('/getAllPost.json', function(req, res, next) {

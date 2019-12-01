@@ -3,7 +3,7 @@ import axios from 'axios';
 
 Vue.prototype.$http = axios.create({
   // 기본 API URL
-  baseURL: process.env.API_URL,
+  baseURL: process.env.VUE_APP_WEB_API,
   timeout: 30000,
   headers: {
     'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',

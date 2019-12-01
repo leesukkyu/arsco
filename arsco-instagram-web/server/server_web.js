@@ -1,4 +1,4 @@
-const LOGGER = require('../arsco-common/logger');
+const LOGGER = require('../../arsco-common/logger');
 
 const express = require('express');
 const path = require('path');
@@ -13,7 +13,7 @@ const adminRouter = require('./routes/admin/admin');
 
 const app = express();
 
-const accessDB = require('../../../arsco-common/db/accessDB');
+const accessDB = require('../../arsco-common/db/accessDB');
 
 accessDB.connect();
 
