@@ -8,3 +8,5 @@ images
 arsco-common/config.js
 # 디비 덤프 파일
 dumps
+# vscode 설정 파일
+.vscode
