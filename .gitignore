@@ -6,3 +6,5 @@ logs
 images
 # 프로젝트 내 모든 설정 파일
 arsco-common/config.js
+# 디비 덤프 파일
+dumps

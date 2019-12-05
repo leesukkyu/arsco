@@ -1,9 +1,13 @@
 const LOGGER = require('../arsco-common/logger');
 const crawler = require('./crawler');
+const schedule = require('node-schedule');
 
 crawler.start();
-setInterval(function() {
+schedule.scheduleJob('30 * * * *', function(fireDate) {
   crawler.start();
-}, 1800000); // 30 분마다 수집
-
+  let date = new Date(fireDate);
+  LOGGER.info(
+    `${date.getFullYear()}_${date.getMonth()}_${date.getDate()}_${date.getMinutes()}_수집 시도함`,
+  );
+});
 LOGGER.info('포스트 수집 스케줄러 시작');

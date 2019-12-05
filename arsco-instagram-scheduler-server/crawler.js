@@ -25,7 +25,7 @@ accessDB.connect();
 
 //////////////////////////////////////////////////////////////
 // 실패시 문자 전송
-sendMsg = function(msg) {
+sendMsg = function() {
   const options = {
     url: CONFIG.SMS.SEND_SMS_API,
     headers: {
@@ -43,7 +43,9 @@ sendMsg = function(msg) {
     },
   };
   httpRequest.post(options, function(error, response, body) {
-    LOGGER.info('실패 문자 전송');
+    if(body.status == 200){
+      LOGGER.info('실패 문자 전송');
+    }
   });
 };
 //////////////////////////////////////////////////////////////
@@ -60,11 +62,9 @@ start = function() {
 // 2. 우리 디비에서 엑세스 토큰을 가져온다.
 getAccessToken = function() {
   User.findById(CONFIG.$OID, function(err, user) {
-    var msg;
-    msg = '수집 에러 - 사용자 못찾음';
     if (err) {
-      sendMsg(msg);
-      LOGGER.info(msg);
+      sendMsg();
+      LOGGER.info('수집 에러 - 사용자 못찾음');
     } else {
       instagramUserName = user.username;
       instagramUserCode = user.code;
@@ -127,7 +127,7 @@ savePosts = function(postList) {
       deletedList.forEach((item, index) => {
         deletedIdList[index] = item.id;
       });
-      postList.forEach((item, index) => {
+      postList.forEach(item => {
         if (deletedIdList.indexOf(item.id) == -1) {
           newPostList.push(item);
         }
@@ -155,7 +155,7 @@ fileDownloadManager = (function() {
 
   const download = function(uri, filename, callback) {
     if (!fs.existsSync(filename)) {
-      httpRequest.head(uri, function(err, res, body) {
+      httpRequest.head(uri, function() {
         httpRequest(uri)
           .pipe(fs.createWriteStream(filename))
           .on('close', callback);
@@ -198,7 +198,7 @@ fileDownloadManager = (function() {
   })();
 
   downLoadImage = function(post) {
-    const fileUrl = post.images.standard_resolution.url;
+    let fileUrl = post.images.standard_resolution.url;
     download(
       fileUrl,
       FILE_FOLDER_PATH +
@@ -207,7 +207,7 @@ fileDownloadManager = (function() {
         '/images/standard_resolution/' +
         getFileName(fileUrl),
       function() {
-        console.log('image done');
+        LOGGER.info('이미지 다운로드 완료');
       },
     );
     fileUrl = post.images.low_resolution.url;
@@ -219,7 +219,7 @@ fileDownloadManager = (function() {
         '/images/low_resolution/' +
         getFileName(fileUrl),
       function() {
-        console.log('image done');
+        LOGGER.info('이미지 다운로드 완료');
       },
     );
     fileUrl = post.images.thumbnail.url;
@@ -231,13 +231,13 @@ fileDownloadManager = (function() {
         '/images/thumbnail/' +
         getFileName(fileUrl),
       function() {
-        console.log('image done');
+        LOGGER.info('이미지 다운로드 완료');
       },
     );
   };
 
   downLoadVideo = function(post) {
-    var fileUrl;
+    let fileUrl;
     // 비디오 포스팅인데 비디오 정보가 없는 경우가 있음. 그런 경우는 이미지로 취급.
     if (post.videos) {
       fileUrl = post.videos.standard_resolution.url;
@@ -249,7 +249,7 @@ fileDownloadManager = (function() {
           '/videos/standard_resolution/' +
           getFileName(fileUrl),
         function() {
-          console.log('video done');
+          LOGGER.info('비디오 다운로드 완료');
         },
       );
       fileUrl = post.videos.low_resolution.url;
@@ -261,7 +261,7 @@ fileDownloadManager = (function() {
           '/videos/low_resolution/' +
           getFileName(fileUrl),
         function() {
-          console.log('video done');
+          LOGGER.info('비디오 다운로드 완료');
         },
       );
     } else {
@@ -301,6 +301,7 @@ fileDownloadManager = (function() {
 
     // 기타 게시물 형태
     else {
+      LOGGER.info('새로운 게시물 형태 발견');
     }
   };
 })();

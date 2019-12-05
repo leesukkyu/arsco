@@ -1,3 +1,4 @@
+const CONFIG = require('../../../../arsco-common/config');
 const express = require('express');
 const router = express.Router();
 
@@ -8,7 +9,6 @@ router.get('/', function(req, res, next) {
 
 // 로그인 로직
 router.post('/login', function(req, res, next) {
-  var DB_USERNAME, DB_PASSWORD;
   var username, password;
   var session;
 
@@ -17,8 +17,11 @@ router.post('/login', function(req, res, next) {
 
   username = req.body.username;
   password = req.body.password;
-  // todo 나중에 db 연동 해야 함.
-  if (DB_USERNAME == username && DB_PASSWORD == password) {
+
+  if (
+    CONFIG.ADMIN.ADMIN_ID == username &&
+    CONFIG.ADMIN.ADMIN_PASSWORD == password
+  ) {
     session = req.session;
     session.username = username;
     res.json({
