@@ -1,4 +1,6 @@
 const winston = require('winston');
+const moment = require('moment-timezone');
+
 require('winston-daily-rotate-file');
 require('date-utils');
 
@@ -11,17 +13,21 @@ const LOGGER = winston.createLogger({
       zippedArchive: false,
       format: winston.format.printf(
         info =>
-          `${new Date().toFormat(
-            'YYYY-MM-DD HH24:MI:SS',
-          )} [${info.level.toUpperCase()}] - ${info.message}`,
+          `${moment(new Date())
+            .tz('Asia/Seoul')
+            .format('YYYY-MM-DD HH:mm:ss')} [${info.level.toUpperCase()}] - ${
+            info.message
+          }`,
       ),
     }),
     new winston.transports.Console({
       format: winston.format.printf(
         info =>
-          `${new Date().toFormat(
-            'YYYY-MM-DD HH24:MI:SS',
-          )} [${info.level.toUpperCase()}] - ${info.message}`,
+          `${moment(new Date())
+            .tz('Asia/Seoul')
+            .format('YYYY-MM-DD HH:mm:ss')} [${info.level.toUpperCase()}] - ${
+            info.message
+          }`,
       ),
     }),
   ],
