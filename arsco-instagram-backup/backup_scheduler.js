@@ -1,8 +1,10 @@
+require('module-alias/register');
+const CONFIG = require('@Common/config');
+const LOGGER = require('@Common/logger');
+
 const backup = require('mongodb-backup');
 const schedule = require('node-schedule');
 
-const CONFIG = require('../arsco-common/config');
-const LOGGER = require('../arsco-common/logger');
 
 // 일요일 오후 2시 30분 마다 DB 백업
 schedule.scheduleJob({ hour: 14, minute: 30, dayOfWeek: 0 }, function(

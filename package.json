@@ -24,6 +24,7 @@
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "i": "^0.3.6",
+    "module-alias": "^2.2.2",
     "mongodb-backup": "^1.6.9",
     "mongoose": "^5.7.13",
     "node-schedule": "^1.3.2",
@@ -34,5 +35,8 @@
   },
   "devDependencies": {
     "eslint": "^6.7.2"
+  },
+  "_moduleAliases": {
+    "@Common": "./arsco-common"
   }
 }

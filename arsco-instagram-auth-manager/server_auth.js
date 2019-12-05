@@ -1,5 +1,6 @@
-const CONFIG = require('../arsco-common/config');
-const LOGGER = require('../arsco-common/logger');
+require('module-alias/register');
+const CONFIG = require('@Common/config');
+const LOGGER = require('@Common/logger');
 
 const express = require('express');
 

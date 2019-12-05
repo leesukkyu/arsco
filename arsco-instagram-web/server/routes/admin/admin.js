@@ -1,4 +1,5 @@
-const CONFIG = require('../../../../arsco-common/config');
+require('module-alias/register');
+const CONFIG = require('@Common/arsco-common/config');
 const express = require('express');
 const router = express.Router();
 

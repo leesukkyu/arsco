@@ -1,9 +1,11 @@
-const CONFIG = require('../../../arsco-common/config');
-const LOGGER = require('../../../arsco-common/logger');
+require('module-alias/register');
 
-const accessDB = require('../../../arsco-common/db/accessDB');
+const CONFIG = require('@Common/config');
+const LOGGER = require('@Common/logger');
 
-const User = require('../../../arsco-common/db/models/User');
+const accessDB = require('@Common/db/accessDB');
+
+const User = require('@Common/db/models/User');
 
 const httpRequest = require('request');
 

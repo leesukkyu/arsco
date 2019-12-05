@@ -1,4 +1,5 @@
-const LOGGER = require('../arsco-common/logger');
+require('module-alias/register');
+const LOGGER = require('@Common/logger');
 
 const cors = require('cors');
 const express = require('express');
