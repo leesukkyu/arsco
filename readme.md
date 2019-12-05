@@ -1,4 +1,4 @@
-###Instagram Data Collector.
+###  Instagram Data Collector.
 
 - Automatically collect postings from users.
 - Text Message notification system on error.
