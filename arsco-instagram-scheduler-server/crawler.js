@@ -124,7 +124,6 @@ savePosts = function(postList) {
   Deleted.find({}, function(err, deletedList) {
     let deletedIdList = [];
     let newPostList = [];
-    let count = 0;
     if (!err) {
       deletedList.forEach((item, index) => {
         deletedIdList[index] = item.id;
@@ -134,20 +133,22 @@ savePosts = function(postList) {
           newPostList.push(item);
         }
       });
-      newPostList.forEach(item => {
-        Post.update({ id: item.id }, item, { upsert: true }, function(
-          error,
-          res,
-        ) {
-          if (res && res.length > 0) {
-            LOGGER.info(res.length + '개 수집 성공.');
-            for (var i in res) {
-              fileDownloadManager(res[i]);
+      Post.createUnique(newPostList, function(error, res) {
+        if (res && res.length > 0) {
+          var count = res.reduce(function(count, item, index, array) {
+            if (item.$init) {
+              return count;
+            } else {
+              return count + 1;
             }
-          } else {
-            LOGGER.info('이미 전부 수집했음');
+          }, 0);
+          LOGGER.info(`새로운 포스트 ${count} + '개 수집 성공.`);
+          for (var i in res) {
+            fileDownloadManager(res[i]);
           }
-        });
+        } else {
+          LOGGER.info('이미 전부 수집했음');
+        }
       });
     }
   });

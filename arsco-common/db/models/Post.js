@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+mongoose.plugin(require('mongoose-create-unique'));
 
 const postSchema = new Schema({
   id: {
