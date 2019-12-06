@@ -13,7 +13,6 @@ const postSchema = new Schema({
   comments: Schema.Types.Mixed,
   created_time: Number,
   filter: Schema.Types.Mixed,
-  id: String,
   images: Schema.Types.Mixed,
   likes: Schema.Types.Mixed,
   link: String,

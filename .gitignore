@@ -10,3 +10,5 @@ arsco-common/config.js
 dumps
 # vscode 설정 파일
 .vscode
+# vscode history 파일
+.history

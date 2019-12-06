@@ -44,7 +44,7 @@ sendMsg = function() {
     },
   };
   httpRequest.post(options, function(error, response, body) {
-    if(body.status == 200){
+    if (body.status == 200) {
       LOGGER.info('실패 문자 전송');
     }
   });
@@ -124,6 +124,7 @@ savePosts = function(postList) {
   Deleted.find({}, function(err, deletedList) {
     let deletedIdList = [];
     let newPostList = [];
+    let count = 0;
     if (!err) {
       deletedList.forEach((item, index) => {
         deletedIdList[index] = item.id;
@@ -133,15 +134,20 @@ savePosts = function(postList) {
           newPostList.push(item);
         }
       });
-      Post.create(newPostList, function(error, res) {
-        if (res && res.length > 0) {
-          LOGGER.info(res.length + '개 수집 성공.');
-          for (var i in res) {
-            fileDownloadManager(res[i]);
+      newPostList.forEach(item => {
+        Post.update({ id: item.id }, item, { upsert: true }, function(
+          error,
+          res,
+        ) {
+          if (res && res.length > 0) {
+            LOGGER.info(res.length + '개 수집 성공.');
+            for (var i in res) {
+              fileDownloadManager(res[i]);
+            }
+          } else {
+            LOGGER.info('이미 전부 수집했음');
           }
-        } else {
-          LOGGER.info('이미 전부 수집했음');
-        }
+        });
       });
     }
   });
