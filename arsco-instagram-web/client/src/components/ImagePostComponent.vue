@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="img-wrap">
-      <img class="img-box lazy" :data-src="getMediaUrl(item.images[config.RESOLUTION_TYPE].url)">
+      <img
+        class="img-box lazy"
+        :data-src="getMediaUrl(item.images[config.RESOLUTION_TYPE].url)"
+      />
     </div>
     <div class="text-wrap">
       <div class="text-box">{{ getText(item) }}</div>
@@ -10,16 +13,17 @@
 </template>
 
 <script>
+import { _getFileNameFromUrl } from '../../public/js/common.js';
 export default {
-  props: ["item", "config"],
+  props: ['item', 'config'],
   methods: {
     getMediaUrl: function(url) {
       if (this.config.USE_ARSCO_SERVER) {
         return (
           this.config.ARSCO_IMAGE_PATH +
           this.config.RESOLUTION_TYPE +
-          "/" +
-          window._getFileNameFromUrl(url)
+          '/' +
+          _getFileNameFromUrl(url)
         );
       } else {
         return url;
@@ -29,9 +33,9 @@ export default {
       if (item.caption && item.caption.text) {
         return item.caption.text;
       } else {
-        return "";
+        return '';
       }
-    }
-  }
+    },
+  },
 };
 </script>

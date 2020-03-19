@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import { _getFileNameFromUrl } from '../../public/js/common.js';
 export default {
   props: ["post", "config"],
   watch: {

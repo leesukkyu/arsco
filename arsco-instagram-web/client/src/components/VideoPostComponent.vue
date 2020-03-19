@@ -17,10 +17,10 @@
 </template>
 
 <script>
+import { _getFileNameFromUrl } from '../../public/js/common.js';
 export default {
   props: ["item", "config"],
   beforeMount() {
-    console.log("video");
   },
   methods: {
     getMediaUrl: function(item) {

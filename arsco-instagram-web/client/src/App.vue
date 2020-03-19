@@ -337,6 +337,8 @@ import FilterObject from './components/FilterObject.vue';
 import ImagePostComponent from './components/ImagePostComponent.vue';
 import Popup from './components/Popup.vue';
 import VideoPostComponent from './components/VideoPostComponent.vue';
+import lazy from '../public/js/lazy.js';
+import { _Date, _COPY } from '../public/js/common.js';
 
 export default {
   name: 'app',
@@ -487,13 +489,10 @@ export default {
       });
     });
   },
-  mounted() {
-    console.log('xx');
-  },
+  mounted() {},
   updated() {
     this.$nextTick(function() {
-      console.log('updated');
-      window.lazy();
+      lazy();
     });
   },
   computed: {
@@ -591,7 +590,6 @@ export default {
       return list.filter(function(post) {
         // 1. 합집합 결과 리스트
         return _this.filterObject_union.some(function(obj) {
-          console.log(obj);
           type = obj.type;
           if (type == 'tag') {
             return post.tags.some(function(tag) {
@@ -623,7 +621,6 @@ export default {
       let type;
       return list.filter(function(post) {
         return _this.filterObject.every(function(obj) {
-          console.log(obj);
           type = obj.type;
           if (type == 'tag') {
             return post.tags.some(function(tag) {
@@ -679,7 +676,6 @@ export default {
             node[i];
         }.bind(this),
       );
-      console.log(this);
     },
     // 커스텀 태그를 탐색하면서 자식을 cb로 밀어넣어줌.
     TraversalChildNode(root, cb) {
@@ -721,7 +717,6 @@ export default {
     },
     // 필터 리스트를 오픈
     openFilterListWrap(item, menu_name, menus) {
-      console.log(item, menu_name, menus);
       for (let i in menus) {
         if (item == menus[i]) {
           if (menus[i].isActive) {
