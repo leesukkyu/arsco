@@ -1,5 +1,5 @@
 require('module-alias/register');
-const CONFIG = require('@Common/arsco-common/config');
+const CONFIG = require('@Common/config');
 const express = require('express');
 const router = express.Router();
 
@@ -14,7 +14,7 @@ router.post('/login', function(req, res, next) {
   var session;
 
   DB_USERNAME = 'arsco';
-  DB_PASSWORD = 'arsco12346';
+  DB_PASSWORD = '';
 
   username = req.body.username;
   password = req.body.password;
