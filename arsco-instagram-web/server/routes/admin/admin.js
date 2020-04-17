@@ -13,8 +13,8 @@ router.post('/login', function(req, res, next) {
   var username, password;
   var session;
 
-  DB_USERNAME = 'arsco';
-  DB_PASSWORD = '';
+  DB_USERNAME = CONFIG.DB_USERNAME;
+  DB_PASSWORD = CONFIG.DB_PASSWORD;
 
   username = req.body.username;
   password = req.body.password;
