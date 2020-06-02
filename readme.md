@@ -1,4 +1,4 @@
-### Mono Repo architecture 
+### Monolithic architecture 
 
 ###  Instagram Data Collector.
 - Automatically collect postings from users.
