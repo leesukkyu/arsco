@@ -21,12 +21,13 @@ let FILE_FOLDER_PATH = __dirname + '/public';
 let start, getAccessToken, getPosts, savePosts, fileDownloadManager;
 let instagramUserName, instagramUserCode;
 let sendMsg;
+let isSendMsg = false;
 
 accessDB.connect();
 
 //////////////////////////////////////////////////////////////
 // 실패시 문자 전송
-sendMsg = function() {
+sendMsg = function () {
   const options = {
     url: CONFIG.SMS.SEND_SMS_API,
     headers: {
@@ -43,7 +44,7 @@ sendMsg = function() {
       content: CONFIG.SMS.MESSAGE,
     },
   };
-  httpRequest.post(options, function(error, response, body) {
+  httpRequest.post(options, function (error, response, body) {
     if (body.status == 200) {
       LOGGER.info('실패 문자 전송');
     }
@@ -52,7 +53,7 @@ sendMsg = function() {
 //////////////////////////////////////////////////////////////
 
 // 1. 수집 시작.
-start = function() {
+start = function () {
   try {
     getAccessToken();
   } catch (error) {
@@ -61,12 +62,16 @@ start = function() {
 };
 
 // 2. 우리 디비에서 엑세스 토큰을 가져온다.
-getAccessToken = function() {
-  User.findById(CONFIG.$OID, function(err, user) {
+getAccessToken = function () {
+  User.findById(CONFIG.$OID, function (err, user) {
     if (err) {
-      sendMsg();
+      if (!isSendMsg) {
+        isSendMsg = true;
+        sendMsg();
+      }
       LOGGER.info('수집 에러 - 사용자 못찾음');
     } else {
+      isSendMsg = false;
       instagramUserName = user.username;
       instagramUserCode = user.code;
       getPosts(user.access_token);
@@ -75,7 +80,7 @@ getAccessToken = function() {
 };
 
 // 3. 가져온 엑세스 토큰을 이용하여 포스트를 가져온다.
-getPosts = function(access_token) {
+getPosts = function (access_token) {
   const requestOption = {
     url: CONFIG.GET_RECENT_POSTS_URL,
     method: 'GET',
@@ -85,7 +90,7 @@ getPosts = function(access_token) {
     },
   };
 
-  httpRequest(requestOption, function(error, response, body) {
+  httpRequest(requestOption, function (error, response, body) {
     // 잘 가져온 경우
     if (!error && response.statusCode == 200) {
       var r = JSON.parse(body);
@@ -120,22 +125,22 @@ getPosts = function(access_token) {
   });
 };
 
-savePosts = function(postList) {
-  Deleted.find({}, function(err, deletedList) {
+savePosts = function (postList) {
+  Deleted.find({}, function (err, deletedList) {
     let deletedIdList = [];
     let newPostList = [];
     if (!err) {
       deletedList.forEach((item, index) => {
         deletedIdList[index] = item.id;
       });
-      postList.forEach(item => {
+      postList.forEach((item) => {
         if (deletedIdList.indexOf(item.id) == -1) {
           newPostList.push(item);
         }
       });
-      Post.createUnique(newPostList, function(error, res) {
+      Post.createUnique(newPostList, function (error, res) {
         if (res && res.length > 0) {
-          var count = res.reduce(function(count, item, index, array) {
+          var count = res.reduce(function (count, item, index, array) {
             if (item.$init) {
               return count;
             } else {
@@ -155,15 +160,15 @@ savePosts = function(postList) {
 };
 
 // 5. 우리 저장소에 이미지를 저장한다.
-fileDownloadManager = (function() {
+fileDownloadManager = (function () {
   let downLoadImage, downLoadVideo;
 
-  const getFileName = uri =>
+  const getFileName = (uri) =>
     uri.slice(uri.lastIndexOf('/') + 1, uri.lastIndexOf('?'));
 
-  const download = function(uri, filename, callback) {
+  const download = function (uri, filename, callback) {
     if (!fs.existsSync(filename)) {
-      httpRequest.head(uri, function() {
+      httpRequest.head(uri, function () {
         httpRequest(uri)
           .pipe(fs.createWriteStream(filename))
           .on('close', callback);
@@ -174,13 +179,13 @@ fileDownloadManager = (function() {
   };
 
   // 다운로드 할 폴더가 존재하는지 확인
-  const checkExistDirectory = (function() {
-    const checkDirectory = function(directory) {
+  const checkExistDirectory = (function () {
+    const checkDirectory = function (directory) {
       if (!fs.existsSync(directory)) {
         shell.mkdir('-p', directory);
       }
     };
-    return function() {
+    return function () {
       checkDirectory(
         FILE_FOLDER_PATH +
           '/' +
@@ -205,7 +210,7 @@ fileDownloadManager = (function() {
     };
   })();
 
-  downLoadImage = function(post) {
+  downLoadImage = function (post) {
     let fileUrl = post.images.standard_resolution.url;
     download(
       fileUrl,
@@ -214,7 +219,7 @@ fileDownloadManager = (function() {
         instagramUserName +
         '/images/standard_resolution/' +
         getFileName(fileUrl),
-      function() {
+      function () {
         LOGGER.info('이미지 다운로드 완료');
       },
     );
@@ -226,7 +231,7 @@ fileDownloadManager = (function() {
         instagramUserName +
         '/images/low_resolution/' +
         getFileName(fileUrl),
-      function() {
+      function () {
         LOGGER.info('이미지 다운로드 완료');
       },
     );
@@ -238,13 +243,13 @@ fileDownloadManager = (function() {
         instagramUserName +
         '/images/thumbnail/' +
         getFileName(fileUrl),
-      function() {
+      function () {
         LOGGER.info('이미지 다운로드 완료');
       },
     );
   };
 
-  downLoadVideo = function(post) {
+  downLoadVideo = function (post) {
     let fileUrl;
     // 비디오 포스팅인데 비디오 정보가 없는 경우가 있음. 그런 경우는 이미지로 취급.
     if (post.videos) {
@@ -256,7 +261,7 @@ fileDownloadManager = (function() {
           instagramUserName +
           '/videos/standard_resolution/' +
           getFileName(fileUrl),
-        function() {
+        function () {
           LOGGER.info('비디오 다운로드 완료');
         },
       );
@@ -268,7 +273,7 @@ fileDownloadManager = (function() {
           instagramUserName +
           '/videos/low_resolution/' +
           getFileName(fileUrl),
-        function() {
+        function () {
           LOGGER.info('비디오 다운로드 완료');
         },
       );
@@ -277,7 +282,7 @@ fileDownloadManager = (function() {
     }
   };
 
-  return function(post) {
+  return function (post) {
     var type, mediaList;
 
     // 폴더 존재 체크
