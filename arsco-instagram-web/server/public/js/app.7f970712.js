@@ -103,7 +103,7 @@
       a = i('bc3a'),
       r = i.n(a);
     (s['a'].prototype.$http = r.a.create({
-      baseURL: 'http://152.67.219.86',
+      baseURL: 'http://storage.arsco.co.kr',
       timeout: 3e4,
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -2265,8 +2265,8 @@
     i('fd38'), i('491b'), i('0b7a');
     (window.ARSCO_CONFIG = {
       ARSCO_ID: 'arsco.co.kr',
-      ARSCO_MEDIA_SERVER: 'http://152.67.219.86:3003',
-      IP_DOMAIN: 'http://152.67.219.86',
+      ARSCO_MEDIA_SERVER: 'http://storage.arsco.co.kr',
+      IP_DOMAIN: 'http://storage.arsco.co.kr',
       DNS_DOMAIN: 'http://storage.arsco.co.kr',
     }),
       s['a'].use(jt['a']),
