@@ -1,4 +1,5 @@
 require('module-alias/register');
+
 const CONFIG = require('@Common/config');
 const LOGGER = require('@Common/logger');
 

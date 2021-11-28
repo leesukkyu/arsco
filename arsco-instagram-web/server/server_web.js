@@ -59,7 +59,7 @@ app.use((req, res, next) => {
 });
 
 // ERROR
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.json({ message: err });
 });
 

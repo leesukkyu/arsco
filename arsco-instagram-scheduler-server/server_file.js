@@ -1,4 +1,5 @@
 require('module-alias/register');
+
 const LOGGER = require('@Common/logger');
 
 const cors = require('cors');
@@ -18,7 +19,7 @@ app.use((req, res, next) => {
 });
 
 // ERROR
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.json({ message: err });
 });
 
