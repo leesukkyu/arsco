@@ -3,7 +3,8 @@ node_modules
 # log
 logs
 # crawl image
-images
+# images
+
 # 프로젝트 내 모든 설정 파일
 arsco-common/config.js
 # 디비 덤프 파일
