@@ -26,7 +26,7 @@
     "i": "^0.3.6",
     "module-alias": "^2.2.2",
     "moment": "^2.24.0",
-    "moment-timezone": "^0.5.27",
+    "moment-timezone": "^0.5.35",
     "mongodb-backup": "^1.6.9",
     "mongoose": "^5.7.13",
     "mongoose-create-unique": "^0.4.4",
